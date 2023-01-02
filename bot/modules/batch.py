@@ -85,7 +85,7 @@ async def _batch(client, message, isLeech=False):
                         try:
                             await get_bulk_msg(message, _link, multi, isLeech=isLeech) 
                         except FloodWait as fw:
-                            await sleep(fw.seconds + 5)
+                            await sleep(fw.seconds + 25)
                             await get_bulk_msg(message, _link, multi, isLeech=isLeech)
             else:
                 file_name = response.document.file_name
@@ -148,7 +148,7 @@ async def get_bulk_msg(message, msg_link, multi, isLeech, value=0):
                 botloop.create_task(tg_down.download()) 
                 if multi > 1:
                     msg = f"{multi - 1}"
-                    await sleep(4)
+                    await sleep(25)
                     nextmsg = await sendMessage(msg, message)
                     nextmsg = await bot.get_messages(message.chat.id, nextmsg.id)
                     nextmsg.from_user.id = message.from_user.id
@@ -157,7 +157,7 @@ async def get_bulk_msg(message, msg_link, multi, isLeech, value=0):
                     try:
                         await get_bulk_msg(nextmsg, msg_link, multi, isLeech, value) 
                     except FloodWait as fw:
-                        await sleep(fw.seconds + 5)
+                        await sleep(fw.seconds + 25)
                         await get_bulk_msg(nextmsg, msg_link, multi, isLeech, value)  
         except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
             await sendMessage("Have you joined the channel?", message)
@@ -178,7 +178,7 @@ async def get_bulk_msg(message, msg_link, multi, isLeech, value=0):
                 botloop.create_task(tg_down.download())
                 if multi > 1:
                     msg = f"{multi - 1}"
-                    await sleep(4)
+                    await sleep(25)
                     nextmsg = await sendMessage(msg, message)
                     nextmsg = await bot.get_messages(message.chat.id, nextmsg.id)
                     nextmsg.from_user.id = message.from_user.id
@@ -188,7 +188,7 @@ async def get_bulk_msg(message, msg_link, multi, isLeech, value=0):
                         await get_bulk_msg(nextmsg, msg_link, multi, isLeech, value) 
                     except FloodWait as fw:
                         LOGGER.info("2")
-                        await sleep(fw.seconds + 5)
+                        await sleep(fw.seconds + 25)
                         await get_bulk_msg(nextmsg, msg_link, multi, isLeech, value)     
         except (ChannelBanned, ChannelInvalid, ChannelPrivate, ChatIdInvalid, ChatInvalid):
             await sendMessage("Have you joined the channel?", message)
